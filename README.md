@@ -50,11 +50,12 @@
 
 - Illustrate regions with the highest concentration of film releases from each bloc’s origin country, segmented by genre to show preferences and trends, using a heatmap.
 - Map language distribution to highlight dominant languages across regions, potentially revealing patterns of cultural or political influence.
+- Utilize Leaflet.js to create interactive maps that visualize our data analysis, allowing users to explore geographical trends and patterns in film distribution and influence zones dynamically. Leaflet.js is highly customizable, enabling us to adjust colors, markers, and layers to enhance the clarity and aesthetics of our visualizations.
 
 **4. Clustering for Influence Zones:**
 
 - Apply soft clustering algorithms based on language, country, and film origin to group countries with similar release patterns or language preferences. This approach will help identify influence zones or cultural clusters associated with each bloc.
-- Perform Network Analysis by treating each country as a node and each movie release as an edge. This could help highlight which countries served as cultural bridges or showed dual influences from both blocs.
+- Perform Network Analysis by treating each country as a node and each movie release as an edge. This could help highlight which countries served as cultural bridges or showed dual influences from both blocs. Below is a representation of what the network would look like. ![Network Analysis Example](src/utils/graph_network.png)
 - Statistical Analysis: use revenue value to assess movies popularity. Understanding a film's popularity will help us assess its impact on audiences, allowing us to develop an "influence metric."
 
 **5. Trend analysis:**
