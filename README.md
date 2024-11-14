@@ -66,6 +66,12 @@
 
 ## Timeline
 
+2024.11.15 (1) Data Preprocessing & Initial Exploratory Data Analysis
+2024.11.22 (2) Finish enriching our dataset with prompt engeneering
+2024.11.29 (3) Visulaization + (5.1) Track Evolution of movie genres/topics
+2024.12.06 (4) Clustering task + (5.2) time series analysis 
+2024.12.20 Website and Data Story 
+
 ## Team organization
 
 |Member | Contribution |
