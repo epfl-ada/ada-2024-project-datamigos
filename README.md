@@ -50,7 +50,8 @@
 
 - Illustrate regions with the highest concentration of film releases from each bloc’s origin country, segmented by genre to show preferences and trends, using a heatmap.
 - Map language distribution to highlight dominant languages across regions, potentially revealing patterns of cultural or political influence.
-- Utilize Leaflet.js to create interactive maps that visualize our data analysis, allowing users to explore geographical trends and patterns in film distribution and influence zones dynamically. Leaflet.js is highly customizable, enabling us to adjust colors, markers, and layers to enhance the clarity and aesthetics of our visualizations.
+- Utilize a tool like [Leaflet.js](https://leafletjs.com) to create interactive maps that visualize our data analysis, allowing users to explore geographical trends and patterns in film distribution and influence zones dynamically. It should be customizable, enabling us to adjust colors, markers, and layers to enhance the clarity and aesthetics of our visualizations.
+- Utilize the [PyVis Python package](https://github.com/WestHealth/pyvis) to create interactive visual networks. PyVis allows us to build network graphs that are not only visually appealing but also interactive, enabling users to explore the connections and relationships within our data dynamically. This tool will help us illustrate the network of film releases and cultural influences, providing an intuitive way to understand the complex interactions between different countries and their cinematic outputs during the Cold War.
 
 **4. Clustering for Influence Zones:**
 
