@@ -33,8 +33,9 @@
 - Exclude extreme or inconsistent data entries, such as movies with durations exceeding 5 hours.
 - Handling Missing Data:
     - Where possible, populate missing values using data from the supplementary datasets.
-    - Impute missing values in the duration column with the median, as film lengths within a given historical period are generally stable.
-    - Due to the high variability and estimation challenges with revenue data, omit records with missing revenue values to preserve analytical accuracy.
+    - Perform value imputation when it is pertienent, such as the duration column with the median, as film lengths within a given historical period are generally stable.
+    - Omit records with missing values to preserve analytical accuracy, such as the revenue, due to it's high variability and the estimation challenges.
+    - Omit problematic features if they aren't that much relevant for our study case. 
 - Perform film selection by focusing on the Cold War period. We'll also examining pre-Cold War productions to identify potential evolutions by the onset of the Cold War.
 
 **2. Prompt engineering**
