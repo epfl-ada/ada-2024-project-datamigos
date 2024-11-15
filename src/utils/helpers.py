@@ -2,7 +2,7 @@ import datetime
 import ast
 import pandas as pd
 import numpy as np
-
+from imdb import IMDb
 
 def convert_to_datetime(date_str):
     """
@@ -105,9 +105,9 @@ def parse_gpt_answer(answer):
     return parsed_answer
 
 
-def get_plot_summary(tconst):
+def get_plot_summary(tconst, imdb_instance):
     try:
-        movie = ia.get_movie(int(str(tconst)[2:]))
+        movie = imdb_instance.get_movie(int(str(tconst)[2:]))
         # Retrieve the plot, if available, or return None
         plot = movie.get("plot")
         if plot:
