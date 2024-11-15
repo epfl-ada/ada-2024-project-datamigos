@@ -89,12 +89,23 @@ What do you think about our title 👉👈 ?
 ## Project Structure
 
 - 📂`data`:
-     - `character.metadata.tsv`: Original character metadata.
-    - `movie.metadata.tsv`: Initial movie metadata file.
-    - `name.clusters.txt`: Text file containing name clusters.
-    - `plot_summaries.txt`: Raw text files of movie plot summaries.
-    - `README.txt`: Descriptive file providing details about the CMU Dataset.
-    - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
+    - 📂`preprocessed`:
+          -`soviet_movies.tsv`: generated from `IMDB Processing.ipynb`
+    -  📂`raw`:
+          - 📂 `MovieSummaries`:
+                - `character.metadata.tsv`: Original character metadata.
+                - `movie.metadata.tsv`: Initial movie metadata file.
+                - `name.clusters.txt`: Text file containing name clusters.
+                - `plot_summaries.txt`: Raw text files of movie plot summaries.
+                - `README.txt`: Descriptive file providing details about the CMU Dataset.
+                - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
+          - 📂`TMDb`:
+                - `keywords.csv`
+                - `movies_metadata.csv`
+          - 📂 `IMDb`: File Sizes too Large, manually install from https://datasets.imdbws.com/
+                - `title.akas.tsv`
+                - `basics.akas.tsv`
+
 - 📂`src`:
     - 📂`models`: Model directory
     - 📂`utils`: Directory for the utilities files containing functions used in the notebooks.
