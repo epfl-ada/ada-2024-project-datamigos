@@ -67,7 +67,7 @@ def preprocess_movie_data(df_movie):
     df_movie = df_movie.dropna(subset=['title'])
     
     # Convert 'title' to lowercase and stripping whitespace
-    df_movie.loc[:, 'title'] = df_movie['title'].str.lower().str.strip()
+    #df_movie.loc[:, 'title'] = df_movie['title'].str.lower().str.strip()
     
     # Convert 'release_date' to datetime
     df_movie.loc[:, 'release_date'] = pd.to_datetime(
