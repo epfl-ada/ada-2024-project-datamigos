@@ -89,7 +89,7 @@
 
 - 📂`data`:
     - 📂`preprocessed`: 
-      - `soviet_movies.tsv`: generated from milestone_2.ipynb
+      - `soviet_movies.tsv`: generated in milestone_2.ipynb
     -  📂`raw`:
           - 📂 `MovieSummaries`:
             - `character.metadata.tsv`: Original character metadata.
