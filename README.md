@@ -21,8 +21,7 @@
 
 - [The CMU Movie Corpus](https://www.cs.cmu.edu/~ark/personas/) is the dataset around which we are building our project. It has been created by David Bamman, Brendan O'Connor, and Noah Smith at the Language Technologies Institute and Machine Learning Department at Carnegie Mellon University.
 
-- [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) contains metadata for 45,000 films listed in the Full MovieLens Dataset, all of which were released on or before July 2017. We will use this dataset, specifically the movies_metadata.csv file, primarily to enrich the movie.metadata.tsv of the CMU movie dataset. Additionally, this dataset includes plot keywords (in the keywords.csv file), which could be helpful for analyzing and clustering movie plots.
-
+- [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) contains metadata for 45,000 films listed in the Full MovieLens Dataset, all of which were released on or before July 2017. We will use this dataset, specifically the movies_metadata.csv file, primarily to fill in missing revenue values, as approximately 90% of revenue data is absent in the CMU movie dataset. Additionally, this dataset includes plot keywords (in the keywords.csv file), which could be helpful for analyzing and clustering movie plots.
 - [IMDB Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/) is a giant database containing over 50 Million movies from different regions, which allows us to complement our initial dataset specifically with movies created in the Soviet Union during the cold war. In addition, using the IMDB API and the IMDbPY Package, we can extract the plot to fix the issues of imbalance (The CMU Movie Summaries data being largely focused on the United States)
 
 ## Methods
@@ -40,7 +39,7 @@
 
 **2. Prompt engineering**
 
-- Use prompt engineering based on title and plot to "homogenize" column values (e.g. converting values such as 'en', 'English' and 'English Language' to the same one) and get info such as:
+- Use prompt engineering based on title and plot to get info such as:
     - Main characters and their archetype
     - If the movie promotes values from the Easter or Western bloc
     - What part of the population is targeted? Age? Social class?
@@ -80,39 +79,33 @@
 
 |Member | Contribution |
 |--------|--------------|
-|Mehdi | <ol><li>Data Integration & Cleaning</li></ol>|
-|Mattéo | <ol><li>Data Integration & Cleaning</li></ol>|
-|Fanny     | <ol><li>Data Integration & Cleaning</li><ol>|
-|Karim     |<ol><li>Data Integration & Cleaning</li><ol>|
-|Martin | <ol><li>Data Integration & Cleaning</li></ol>|
-
-## Question
-
-What do you think about our title 👉👈 ?
+|Mehdi | <ol><li>Data Integration & Cleaning</li><li>Prompt Engineering</li><li>Clustering for Influence Zones</li></ol>|
+|Mattéo | <ol><li>Data Integration & Cleaning</li><li>Prompt Engineering</li><li>Trend analysis</li></ol>|
+|Fanny     | <ol><li>Data Integration & Cleaning</li><li>Visualizations</li><li>Trend analysis</li><ol>|
+|Karim     |<ol><li>Data Integration & Cleaning</li><li>Clustering for Influence Zones</li><ol>|
+|Martin | <ol><li>Data Integration & Cleaning</li><li>Visualizations</li><li>Website</li></ol>|
 
 ## Project Structure
 
 - 📂`data`:
-    - 📂`preprocessed`:
-      - `merged_movies.csv`: merged movie metadata file.
-    - 📂`raw`:
-      - 📂`IMDb`: Folder containing the data files from IMDb
-        - `title.akas.tsv`:
-        - `titles.basics.tsv`:
-      - 📂`MovieSummaries`: Folder containing the data files from the CMU Corpus
-        - `character.metadata.tsv`: Original character metadata.
-        - `movie.metadata.tsv`: Initial movie metadata file.
-        - `name.clusters.txt`: Text file containing name clusters.
-        - `plot_summaries.txt`: Raw text files of movie plot summaries.
-        - `README.txt`: Descriptive file providing details about the CMU Dataset.
-        - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
-      - 📂`TMDb`: Folder containing the data files from TMDb
-        - `keyworkds.csv`: File with keywords about movies.
-        - `movies_metadata.csv`: TMDb movie metadata file.
+    - 📂`preprocessed`: 
+      - `soviet_movies.tsv`: generated from
+    -  📂`raw`:
+          - 📂 `MovieSummaries`:
+            - `character.metadata.tsv`: Original character metadata.
+            - `movie.metadata.tsv`: Initial movie metadata file.
+            - `name.clusters.txt`: Text file containing name clusters.
+            - `plot_summaries.txt`: Raw text files of movie plot summaries.
+            - `README.txt`: Descriptive file providing details about the CMU Dataset.
+            - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
+          - 📂`TMDb`:
+              - `keywords.csv`
+              - `movies_metadata.csv`
+          - 📂 `IMDb`: File Sizes too Large, manually install from https://datasets.imdbws.com/
+            - `title.akas.tsv`
+            - `basics.akas.tsv`
+
 - 📂`src`:
-    - 📂`models`: Model directory
     - 📂`utils`: Directory for the utilities files containing functions used in the notebooks.
-      - `preprocessing_helpers.py`: 
-- 📂`tests`: Tests of any kind
 - `milestone_2.ipynb`: Main notebook for Milestone 2.
 - `README.md`: Main documentation file of the repository
