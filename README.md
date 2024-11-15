@@ -89,11 +89,11 @@ What do you think about our title 👉👈 ?
 ## Project Structure
 
 - 📂`data`:
-    - 📂`preprocessed`:
-          -`soviet_movies.tsv`: generated from `IMDB Processing.ipynb`
+    - 📂`preprocessed`: 
+      - `soviet_movies.tsv`: generated from `IMDB Processing.ipynb`
     -  📂`raw`:
           - 📂 `MovieSummaries`:
-                - `character.metadata.tsv`: Original character metadata.
+            - `character.metadata.tsv`: Original character metadata.
                 - `movie.metadata.tsv`: Initial movie metadata file.
                 - `name.clusters.txt`: Text file containing name clusters.
                 - `plot_summaries.txt`: Raw text files of movie plot summaries.
