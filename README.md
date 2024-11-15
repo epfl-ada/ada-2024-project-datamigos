@@ -33,14 +33,13 @@
 - Exclude extreme or inconsistent data entries, such as movies with durations exceeding 5 hours.
 - Handling Missing Data:
     - Where possible, populate missing values using data from the supplementary datasets.
-    - Perform value imputation when it is pertienent, such as the duration column with the median, as film lengths within a given historical period are generally stable.
-    - Omit records with missing values to preserve analytical accuracy, such as the revenue, due to it's high variability and the estimation challenges.
-    - Omit problematic features if they aren't that much relevant for our study case. 
+    - Impute missing values in the duration column with the median, as film lengths within a given historical period are generally stable.
+    - Due to the high variability and estimation challenges with revenue data, omit records with missing revenue values to preserve analytical accuracy.
 - Perform film selection by focusing on the Cold War period. We'll also examining pre-Cold War productions to identify potential evolutions by the onset of the Cold War.
 
 **2. Prompt engineering**
 
-- Use prompt engineering based on title and plot to get info such as:
+- Use prompt engineering based on title and plot to "homogenize" column values (e.g. converting values such as 'en', 'English' and 'English Language' to the same one) and get info such as:
     - Main characters and their archetype
     - If the movie promotes values from the Easter or Western bloc
     - What part of the population is targeted? Age? Social class?
@@ -51,11 +50,12 @@
 
 - Illustrate regions with the highest concentration of film releases from each bloc’s origin country, segmented by genre to show preferences and trends, using a heatmap.
 - Map language distribution to highlight dominant languages across regions, potentially revealing patterns of cultural or political influence.
+- Utilize a tool like [Leaflet.js](https://leafletjs.com) to create interactive maps that visualize our data analysis, allowing users to explore geographical trends and patterns in film distribution and influence zones dynamically. It should be customizable, enabling us to adjust colors, markers, and layers to enhance the clarity and aesthetics of our visualizations.
+- Utilize the [PyVis Python package](https://github.com/WestHealth/pyvis) to create interactive visual networks. PyVis allows us to build network graphs that are not only visually appealing but also interactive, enabling users to explore the connections and relationships within our data dynamically. This tool will help us illustrate the network of film releases and cultural influences, providing an intuitive way to understand the complex interactions between different countries and their cinematic outputs during the Cold War.
 
 **4. Clustering for Influence Zones:**
 
 - Apply soft clustering algorithms based on language, country, and film origin to group countries with similar release patterns or language preferences. This approach will help identify influence zones or cultural clusters associated with each bloc.
-- Perform Network Analysis by treating each country as a node and each movie release as an edge. This could help highlight which countries served as cultural bridges or showed dual influences from both blocs.
 - Statistical Analysis: use revenue value to assess movies popularity. Understanding a film's popularity will help us assess its impact on audiences, allowing us to develop an "influence metric."
 
 **5. Trend analysis:**
@@ -64,6 +64,16 @@
 - Using movie release dates, we can identify periods where specific genres surged. We can map genre trends to historical events using time series analysis. We could also look at the number of movies released internationally versus nationally by each bloc. This may reveal periods when one bloc attempted to expand its influence (e.g., the Space Race, the Vietnam War).
 
 ## Timeline
+
+2024.11.15 (1) Data Preprocessing & Initial Exploratory Data Analysis
+
+2024.11.22 (2) Finish enriching our dataset with prompt engeneering
+
+2024.11.29 (3) Visulaization + (5.1) Track Evolution of movie genres/topics
+
+2024.12.06 (4) Clustering task + (5.2) time series analysis 
+
+2024.12.20 Website and Data Story 
 
 ## Team organization
 
@@ -82,15 +92,26 @@ What do you think about our title 👉👈 ?
 ## Project Structure
 
 - 📂`data`:
-     - `character.metadata.tsv`: Original character metadata.
-    - `movie.metadata.tsv`: Initial movie metadata file.
-    - `name.clusters.txt`: Text file containing name clusters.
-    - `plot_summaries.txt`: Raw text files of movie plot summaries.
-    - `README.txt`: Descriptive file providing details about the CMU Dataset.
-    - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
+    - 📂`preprocessed`:
+      - `merged_movies.csv`: merged movie metadata file.
+    - 📂`raw`:
+      - 📂`IMDb`: Folder containing the data files from IMDb
+        - `title.akas.tsv`:
+        - `titles.basics.tsv`:
+      - 📂`MovieSummaries`: Folder containing the data files from the CMU Corpus
+        - `character.metadata.tsv`: Original character metadata.
+        - `movie.metadata.tsv`: Initial movie metadata file.
+        - `name.clusters.txt`: Text file containing name clusters.
+        - `plot_summaries.txt`: Raw text files of movie plot summaries.
+        - `README.txt`: Descriptive file providing details about the CMU Dataset.
+        - `tvtropes.clusters.txt`: Cluster data related to TV tropes.
+      - 📂`TMDb`: Folder containing the data files from TMDb
+        - `keyworkds.csv`: File with keywords about movies.
+        - `movies_metadata.csv`: TMDb movie metadata file.
 - 📂`src`:
     - 📂`models`: Model directory
     - 📂`utils`: Directory for the utilities files containing functions used in the notebooks.
+      - `preprocessing_helpers.py`: 
 - 📂`tests`: Tests of any kind
 - `milestone_2.ipynb`: Main notebook for Milestone 2.
 - `README.md`: Main documentation file of the repository
