@@ -21,7 +21,8 @@
 
 - [The CMU Movie Corpus](https://www.cs.cmu.edu/~ark/personas/) is the dataset around which we are building our project. It has been created by David Bamman, Brendan O'Connor, and Noah Smith at the Language Technologies Institute and Machine Learning Department at Carnegie Mellon University.
 
-- [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) contains metadata for 45,000 films listed in the Full MovieLens Dataset, all of which were released on or before July 2017. We will use this dataset, specifically the movies_metadata.csv file, primarily to fill in missing revenue values, as approximately 90% of revenue data is absent in the CMU movie dataset. Additionally, this dataset includes plot keywords (in the keywords.csv file), which could be helpful for analyzing and clustering movie plots.
+- [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) contains metadata for 45,000 films listed in the Full MovieLens Dataset, all of which were released on or before July 2017. We will use this dataset, specifically the movies_metadata.csv file, primarily to enrich the movie.metadata.tsv of the CMU movie dataset. Additionally, this dataset includes plot keywords (in the keywords.csv file), which could be helpful for analyzing and clustering movie plots.
+
 - [IMDB Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/) is a giant database containing over 50 Million movies from different regions, which allows us to complement our initial dataset specifically with movies created in the Soviet Union during the cold war. In addition, using the IMDB API and the IMDbPY Package, we can extract the plot to fix the issues of imbalance (The CMU Movie Summaries data being largely focused on the United States)
 
 ## Methods
