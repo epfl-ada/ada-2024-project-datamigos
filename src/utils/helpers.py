@@ -3,6 +3,7 @@ import ast
 import pandas as pd
 import numpy as np
 from imdb import IMDb
+import re
 
 def convert_to_datetime(date_str):
     """
@@ -86,21 +87,25 @@ def create_query_movie(prompt, name, year, plot):
 
 
 def parse_gpt_answer(answer):
+
+    def split(line):
+        return re.split(r",|\n", line)
+
     parsed_answer = {}
     # Split the answer
     answer = answer.split("\n")
     # Parse the Cold War side
     parsed_answer["cold_war_side"] = answer[0]
     # Parse the Western bloc representation
-    parsed_answer["character_western_bloc_representation"] = answer[1].split(",")
+    parsed_answer["character_western_bloc_representation"] = split(answer[1])
     # Parse the Eastern bloc representation
-    parsed_answer["character_eastern_bloc_representation"] = answer[2].split(",")
+    parsed_answer["character_eastern_bloc_representation"] = split(answer[2])
     # Parse the Western bloc values;
-    parsed_answer["western_bloc_values"] = answer[3].split(",")
+    parsed_answer["western_bloc_values"] = split(answer[3])
     # Parse the Eastern bloc values
-    parsed_answer["eastern_bloc values"] = answer[4].split(",")
+    parsed_answer["eastern_bloc values"] = split(answer[4])
     # Parse the theme of the movie
-    parsed_answer["theme"] = answer[5].split(",")
+    parsed_answer["theme"] = split(answer[5])
 
     return parsed_answer
 
