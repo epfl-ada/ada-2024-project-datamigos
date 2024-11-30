@@ -89,6 +89,7 @@ def create_query_movie(prompt, name, year, plot):
 def parse_gpt_answer(answer):
 
     def split(line):
+        line = re.sub(r"^[^:]*:", "", line)
         return re.split(r",|\n", line)
 
     parsed_answer = {}
