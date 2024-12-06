@@ -1,5 +1,6 @@
 import datetime
 import ast
+import re
 import pandas as pd
 import numpy as np
 from imdb import IMDb
@@ -30,7 +31,28 @@ def convert_to_datetime(date_str):
             except (ValueError, TypeError):
                 return None
 
+def clean_column_values(value):
+    '''
+    Clean the value of a column by removing special characters and 
+    whitespaces and turn it into a list of strings
 
+    Arguments:
+        value (str): the value to clean 
+    
+    Return:
+        the cleaned value (list(str))
+    '''
+    if isinstance(value, float):
+        return np.nan
+    else:
+        # Remove all special characters and whitespaces from the string
+        value = re.sub(r'[[\]"\' ]+', '', value)
+        value.replace('language', '')
+        # Remove the word "language" from the string
+        pattern = re.compile(r'\b(\w+)language\b')
+        value = pattern.sub(r'\1', value)
+        return value.split(",")
+    
 def extract_list(row, type):
     '''
     Extract the list of values from a dictionary
