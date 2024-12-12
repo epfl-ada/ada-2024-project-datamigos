@@ -45,13 +45,14 @@ def clean_column_values(value):
     if isinstance(value, float):
         return np.nan
     else:
-        # Remove all special characters and whitespaces from the string
-        value = re.sub(r'[[\]"\' ]+', '', value)
-        value.replace('language', '')
+        # Remove leading and trailing whitespaces
+        value = value.strip()
+        # Remove all special characters
+        value = re.sub(r'[\[\]\"\']+', '', value)
         # Remove the word "language" from the string
         pattern = re.compile(r'\b(\w+)language\b')
         value = pattern.sub(r'\1', value)
-        return value.split(",")
+        return [item.strip() for item in value.split(",")]
     
 def extract_list(row, type):
     '''
