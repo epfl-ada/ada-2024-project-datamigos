@@ -1,8 +1,16 @@
 import datetime
 import ast
+import re
 import pandas as pd
 import numpy as np
-from imdb import IMDb
+
+def convert_csv(df):
+    for col in df.columns:
+        try:
+            df[col] = df[col].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else x)
+        except:
+            pass
+    return df
 
 def convert_to_datetime(date_str):
     """
@@ -31,6 +39,51 @@ def convert_to_datetime(date_str):
                 return None
 
 
+def combine_columns(df, name_1, name_2):
+    df[name_1] = df.apply(
+    lambda row: list(
+        set(
+            (row[name_1] if isinstance(row[name_1], list) else [])
+                + (
+                    row[name_2]
+                    if isinstance(row[name_2], list)
+                    else []
+                    )
+                )
+            ),
+            axis=1,
+        )   
+    
+    # Replace empty lists by NaN
+    df[name_1] = df[name_1].apply(
+        lambda x: np.nan if len(x) == 0 else x
+    )
+
+    return df
+
+
+def clean_column_values(value):
+    '''
+    Clean the value of a column by removing special characters and turn it into a list of strings.
+
+    Arguments:
+        value (str): the value to clean 
+    
+    Return:
+        the cleaned value (list(str))
+    '''
+    if isinstance(value, float):
+        return np.nan
+    else:
+        # Remove leading and trailing whitespaces
+        value = value.strip()
+        # Remove all special characters
+        value = re.sub(r'[[\]"\']+', '', value)
+        # Remove the word "language" from the string
+        pattern = re.compile(r'\b(\w+)language\b')
+        value = pattern.sub(r'\1', value)
+        return [item.strip() for item in value.split(",")]
+    
 def extract_list(row, type):
     '''
     Extract the list of values from a dictionary
