@@ -122,7 +122,7 @@ def plot_term_frequencies(etf_by_topic, otf_by_topic, colors, topic_dict):
         )
         fig.show()
 
-def plot_empath_evolution(empath_df, topic_colors):
+def plot_empath_evolution(empath_df, topic_colors, title_end='Across Years'):
     fig = go.Figure()
     # Map colors
     empath_df['color'] = empath_df['topic'].map(topic_colors)
@@ -132,7 +132,6 @@ def plot_empath_evolution(empath_df, topic_colors):
         x='year',
         y='proportion',
         color='topic',
-        title='Evolution of Grouped Empath Topics Across Years',
         color_discrete_map=topic_colors
     )
     
@@ -143,8 +142,8 @@ def plot_empath_evolution(empath_df, topic_colors):
         yaxis_title="Frequency of a Category",
         legend_title="Categories",
         title={
-            "text": "Changing Themes in Character Representation Across Years",
-            "x": 0.5,
+            "text": f"Changing Themes in Character Representation {title_end}",
+            "x": 0.43,
             "xanchor": "center",
             "font": {"size": 20, "family": "Arial", "weight": "bold"}
         },

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 import plotly.graph_objects as go
 import plotly.express as px
@@ -113,30 +114,36 @@ def topic_detection(df, nb_topics, nb_passes):
     
     lda_model = LdaModel(corpus, num_topics=nb_topics, id2word=dictionary, passes=nb_passes)
     
-    for idx, topic in lda_model.print_topics(-1, 15):
+    for idx, topic in lda_model.print_topics(-1, 10):
         print(f'Topic: {idx}\nWords: {topic}\n')
     
     return lda_model, corpus, dictionary
 
 def get_dominant_topic(lda_model, corpus):
     """
-    Get the dominant archetype for each character in the corpus
+    Get the dominant topic for each document (characters in our case) in the corpus
     """
     topics = []
-    for row in corpus:
-        row = lda_model[row]
-        max_topic, max_val = 0, 0
-        for (topic_num, prop_topic) in row:
-            if prop_topic > max_val:
-                max_val = prop_topic
-                max_topic = topic_num
-        topics.append(max_topic)
+    for doc in corpus:
+        # Get topic distribution for the document
+        topic_distribution = lda_model[doc]
+        if topic_distribution:
+            proportions = [prop_topic for _, prop_topic in topic_distribution]
+            # Dominant topic
+            dominant_topic = np.argmax(proportions)
+            # Variance of proportions to see if the topic is really dominant
+            variance = np.var(proportions) 
+            topics.append((dominant_topic, variance))
+
     return topics
 
 def get_main_character_archetypes(df, nb_topics, nb_passes, nlp, words_to_remove):
     df['processed_repres'] = df['character_representation'].apply(preprocess_char_repres, args=(nlp, words_to_remove))
     topic_detection_res = topic_detection(df['processed_repres'], nb_topics, nb_passes)
     df['topic'] = get_dominant_topic(topic_detection_res[0], topic_detection_res[1])
+    # Keep only the "relevant" dominant topics that is the characters for which the
+    # variance in the topic distribution was large enough to have a "dominant" topic
+    df = df[df['topic'].apply(lambda x: x[1] > 0.1)] 
     return df, topic_detection_res
 
 def compute_overall_term_freq(corpus, dictionary):
