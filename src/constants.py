@@ -34,12 +34,12 @@ COLOR_SCALE = [
 ]
 
 # Neutral colors
-NEUTRAL_COLORS = {
+NEUTRAL_COLORS = [
     "#000010",  # Darkest Neutral
     "#59585B",
     "#BBB9B9",
     "#F2F2F2"   # Lightest Neutral
-}
+]
 
 # Distinct colors
 DISTINCT_COLORS = [
