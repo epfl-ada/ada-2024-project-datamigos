@@ -21,6 +21,36 @@ TMDB_KEYWORDS = DATA_FOLDER_TMDB + "keywords.csv"
 IMDB_AKA = DATA_FOLDER_IMDB + "title.akas.tsv"
 IMDB_BASIC = DATA_FOLDER_IMDB + "title.basics.tsv"
 
-EASTERN_COLOR = "#DD3C32"
-WESTERN_COLOR = "#0F89E6"
-NEUTRAL_COLOR = "#C2C7D6"
+# COLOR SETS
+# Scale West to East
+COLOR_SCALE = [
+    "#BD0032",  #Deep Red - East Side
+    "#F7514B",  #Red
+    "#FEB3A6",  #Light Red
+    "#F2F2F2",  #Neutral Middle
+    "#A0CBE8",  #Light Blue
+    "#5C8DB8",  #Blue
+    "#1C5EA9"   #Deep Blue - West Side
+]
+
+# Neutral colors
+NEUTRAL_COLORS = {
+    "#000010",  # Darkest Neutral
+    "#59585B",
+    "#BBB9B9",
+    "#F2F2F2"   # Lightest Neutral
+}
+
+# Distinct colors
+DISTINCT_COLORS = [
+    "#000000",
+    "#06DD95",
+    "#98E144",
+    "#FFE989",
+    "#F1AB79",
+    "#4BAE9A",
+    "#7FB112",
+    "#F0FE41",
+    "#FAC82B",
+    "#F58634"
+]
