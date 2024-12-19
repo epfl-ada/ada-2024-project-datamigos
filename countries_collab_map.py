@@ -149,26 +149,14 @@ app.layout = html.Div([
     html.H1('Film Production Collaboration Network'),
     
     html.Div([
-        html.Label('Cold War Threshold:'),
-        dcc.Slider(
-            id='cold-war-slider',
-            min=0,
-            max=50,
-            step=1,
-            value=19,
-            marks={i: str(i) for i in range(0, 51, 5)},
-        ),
-    ]),
-    
-    html.Div([
         html.Label('Minimum Films Produced:'),
         dcc.Slider(
             id='min-films-slider',
             min=1,
-            max=2000,
+            max=350,
             step=1,
             value=40,
-            marks={i: str(i) for i in range(1, 2001, 50)},
+            marks={i: str(i) for i in range(0, 351, 50)},
         ),
     ]),
     
@@ -177,10 +165,10 @@ app.layout = html.Div([
         dcc.Slider(
             id='min-collab-slider',
             min=1,
-            max=400,
+            max=100,
             step=1,
             value=10,
-            marks={i: str(i) for i in range(1, 401, 10)},
+            marks={i: str(i) for i in range(0, 101, 10)},
         ),
     ]),
 
@@ -190,12 +178,11 @@ app.layout = html.Div([
 @app.callback(
     dash.dependencies.Output('film-network-map', 'figure'),
     [
-        dash.dependencies.Input('cold-war-slider', 'value'),
         dash.dependencies.Input('min-films-slider', 'value'),
         dash.dependencies.Input('min-collab-slider', 'value'),
     ]
 )
-def update_map(threshold, min_films, min_collab):
+def update_map(min_films, min_collab):
     country_film_count = Counter()
     collaboration_count = Counter()
     for countries in movies['countries']:
@@ -210,7 +197,7 @@ def update_map(threshold, min_films, min_collab):
     collaboration_count = {k: v for k, v in collaboration_count.items() if v > min_collab}
     collaboration_count = {k: v for k, v in collaboration_count.items() if k[0] in countries and k[1] in countries}
 
-    country_cold_war_side = assign_side(movies, countries, threshold=threshold)
+    country_cold_war_side = assign_side(movies, countries)
 
     G = nx.Graph()
     for country in country_film_count:
@@ -232,22 +219,41 @@ def update_map(threshold, min_films, min_collab):
                 'grey'
             )
 
-    edge_lat, edge_lon = [], []
+    edge_lat, edge_lon, edge_colors, edge_widths = [], [], [], []
+    max_collaboration = max(collaboration_count.values())
+
     for (c1, c2), weight in collaboration_count.items():
         if c1 in country_coords and c2 in country_coords:
+            # Coordinates for edges
             edge_lat.extend([country_coords[c1][0], country_coords[c2][0], None])
             edge_lon.extend([country_coords[c1][1], country_coords[c2][1], None])
 
+            # Determine color based on alignment
+            if country_cold_war_side.get(c1) == 'Western' and country_cold_war_side.get(c2) == 'Western':
+                edge_colors.append('blue')
+            elif country_cold_war_side.get(c1) == 'Eastern' and country_cold_war_side.get(c2) == 'Eastern':
+                edge_colors.append('red')
+            else:
+                edge_colors.append('black')
+
+            # Determine edge thickness
+            edge_widths.append((weight / max_collaboration) * 5)  # Scale thickness by max collaboration
+
     fig = go.Figure()
 
-    fig.add_trace(go.Scattergeo(
-        locationmode='ISO-3',
-        lat=edge_lat,
-        lon=edge_lon,
-        mode='lines',
-        line=dict(width=1, color='black'),
-        hoverinfo='none'
-    ))
+    for i, (start_lat, start_lon, color, width) in enumerate(zip(edge_lat[::3], edge_lon[::3], edge_colors, edge_widths)):
+        fig.add_trace(go.Scattergeo(
+            locationmode='ISO-3',
+            lat=[edge_lat[i*3], edge_lat[i*3+1], None],
+            lon=[edge_lon[i*3], edge_lon[i*3+1], None],
+            mode='lines',
+            line=dict(width=width, color=color),
+            hoverinfo='none'
+        ))
+
+    hover_texts = []
+    for node in G.nodes():
+        hover_texts.append(f"{node} : {round(G.nodes[node]['size']**2)}")
 
     fig.add_trace(go.Scattergeo(
         locationmode='ISO-3',
@@ -260,7 +266,8 @@ def update_map(threshold, min_films, min_collab):
             line=dict(width=0.5, color='black')
         ),
         text=list(country_film_count.keys()),
-        hoverinfo='text'
+        hoverinfo='text',
+        hovertext=hover_texts
     ))
 
     fig.update_layout(

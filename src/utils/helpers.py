@@ -4,7 +4,7 @@ import re
 import pandas as pd
 import numpy as np
 
-def assign_side(movies_df, countries, relevance_nb=10, relevance_diff=10, threshold=20):
+def assign_side(movies_df, countries, relevance_nb=10, relevance_diff=10, threshold=19):
     """
     Assigns a Cold War side (Western, Eastern, or None) to each country based on the prevalence of films 
     aligned with each side in a dataset.
@@ -21,7 +21,7 @@ def assign_side(movies_df, countries, relevance_nb=10, relevance_diff=10, thresh
                       Defaults to 10.
         countries: A list of country names for which the Cold War side alignment needs to be determined.
         threshold: The minimum percentage difference between the number of Western and Eastern aligned films 
-                   required to classify a country as either 'Western' or 'Eastern'. Defaults to 20%.
+                   required to classify a country as either 'Western' or 'Eastern'. Defaults to 19%.
 
     Returns:
         A dictionary where the keys are country names and the values are their assigned Cold War side.
