@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from utils.plots_template import *
+from src.utils.plots_template import *
 import spacy
 from gensim import corpora
 from gensim.models.ldamodel import LdaModel
@@ -131,10 +131,12 @@ def create_theme_topics(theme_df):
     return theme_topic
 
 
-def get_eastern_western_theme_topics(theme_df, theme_topic):
-    # for idx, topic in theme_topic[0].print_topics(-1):
-    #     print(f"Topic: {idx}\nWords: {topic}\n")
+def print_topics(theme_topic):
+    for idx, topic in theme_topic[0].print_topics(-1):
+        print(f"Topic: {idx}\nWords: {topic}\n")
 
+
+def get_eastern_western_theme_topics(theme_df, theme_topic):
     theme_df["dominant_topic"] = get_dominant_topic(theme_topic[0], theme_topic[1])
     eastern_theme = theme_df[theme_df["movie_side"] == "Eastern"]
     western_theme = theme_df[theme_df["movie_side"] == "Western"]
