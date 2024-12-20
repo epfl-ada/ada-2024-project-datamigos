@@ -7,7 +7,8 @@ datamigos_template = {
         "font": {
             "family": "Helvetica Neue"
         },
-        "plot_bgcolor": "#F2F2F2",   # NEUTRAL-4 background color
+        "plot_bgcolor": "rgba(0,0,0,0)",   # NEUTRAL-4 background color
+        "paper_bgcolor": "rgba(0,0,0,0)",  # NEUTRAL-4 background color
         "colorway": DISTINCT_COLORS,
         "xaxis": {
             "title": {
