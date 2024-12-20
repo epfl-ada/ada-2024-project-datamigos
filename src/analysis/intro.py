@@ -3,7 +3,7 @@ from collections import Counter
 from src.utils.constants import *
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from analysis.intro import *
+from src.analysis.intro import *
 from ipyleaflet import Map, TileLayer, GeoJSON, Popup, WidgetControl
 from ipywidgets import HTML
 
