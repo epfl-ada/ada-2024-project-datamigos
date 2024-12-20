@@ -3,6 +3,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
+from src.utils.constants import *
 
 COLD_WAR_PERIODS = {
     'Blocs Establishment': (1947, 1953),
@@ -71,6 +72,7 @@ def plot_eastern_western_archetypes_distrib(east_df, west_df, east_colors, west_
     fig.update_yaxes(title_text="Number of Characters", row=1, col=2)
 
     fig.show()
+    return fig
 
 def plot_term_frequencies(etf_by_topic, otf_by_topic, colors, topic_dict):
     for topic_id, word_frequencies in etf_by_topic.items():
@@ -120,6 +122,7 @@ def plot_term_frequencies(etf_by_topic, otf_by_topic, colors, topic_dict):
             width=1000,  
             margin=dict(l=30, r=30, t=50, b=50) 
         )
+        fig.write_html(WEB_EXPORT_FOLDER + f"term_ferquencies_{topic_dict[topic_id].lower()}.html")
         fig.show()
 
 def plot_empath_evolution(empath_df, topic_colors, title_end='Across Years'):
@@ -150,6 +153,7 @@ def plot_empath_evolution(empath_df, topic_colors, title_end='Across Years'):
         margin=dict(l=50, r=50, t=50, b=50)
     )
     fig.show()
+    return fig
 
 def plot_empath_distrib_by_year(empath_df, topic_colors, year):
     fig = go.Figure()
@@ -178,6 +182,7 @@ def plot_empath_distrib_by_year(empath_df, topic_colors, year):
 
     fig.update_xaxes(tickfont=dict(size=9.5))
     fig.show()
+    return fig
 
 def assign_period(row, periods=COLD_WAR_PERIODS):
     for period, (start, end) in periods.items():
