@@ -426,3 +426,85 @@ def get_comedy_war_movies(movies_df):
             ].apply(lambda x: "Comedy" in x)
         )
     ]
+
+
+# Create Plotly figure function
+def plot_genre_over_periods(
+    genres_df,
+    genre,
+    bins=[1945, 1953, 1962, 1974, 1984, 1995],
+    labels=[
+        "Blocs Establishment",
+        "Major tensions and crises",
+        "Détente",
+        "Second Cold War",
+        "End of the Cold War",
+    ],
+):
+    genres_df["period"] = pd.cut(
+        genres_df["release_date"], bins, labels=labels, right=True
+    )
+
+    period_counts = (
+        genres_df.explode("genres")
+        .groupby(["period", "cold_war_side"], observed=False)["genres"]
+        .value_counts()
+        .reset_index()
+    )
+
+    df = period_counts
+    years = [bins[i + 1] - bins[i] for i in range(len(bins) - 1)]
+    period_years = dict(zip(labels, years))
+
+    # Divide counts by the number of years in the corresponding period
+    df["years"] = df["period"].map(period_years)
+    df["count"] = df["count"] / df["years"].astype(int)
+
+    fig = px.bar(
+        df[df["genres"] == genre],
+        x="period",
+        y="count",
+        color="cold_war_side",
+        title=f"Average Number Of {genre} Movies per Year Over Different Periods",
+        labels={
+            "period": "Period",
+            "count": "Count",
+            "genres": "Genres",
+            "cold_war_side": "Side",
+        },
+        template="plotly_white",
+        barmode="group",
+        color_discrete_map={
+            "Western": COLOR_SCALE[-1],  # Assign "Western" to blue
+            "Eastern": COLOR_SCALE[0],  # Assign "Eastern" to red
+        },
+    )
+
+    fig.update_layout(
+        hovermode="x unified",
+        title=dict(x=0.5, xanchor="center"),
+    )
+    return fig
+
+
+def plot_interactive_side_over_period(
+    genres_df,
+    common_genres,
+    bins=[1945, 1953, 1962, 1974, 1984, 1995],
+    labels=[
+        "Blocs Establishment",
+        "Major tensions and crises",
+        "Détente",
+        "Second Cold War",
+        "End of the Cold War",
+    ],
+):
+
+    # Use interact with a dropdown
+    interact(
+        lambda genre: plot_genre_over_periods(
+            genres_df[genres_df["cold_war_side"].isin(["Western", "Eastern"])],
+            genre,
+        ),
+        genre=Dropdown(options=common_genres, value="War", description="Genre"),
+    )
