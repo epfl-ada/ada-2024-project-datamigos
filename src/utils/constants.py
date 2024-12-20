@@ -28,7 +28,7 @@ COLOR_SCALE = [
     "#BD0032",  #Deep Red - East Side
     "#F7514B",  #Red
     "#FEB3A6",  #Light Red
-    "#F2F2F2",  #Neutral Middle
+    "#D5D5D5",  #Neutral Middle
     "#A0CBE8",  #Light Blue
     "#5C8DB8",  #Blue
     "#1C5EA9"   #Deep Blue - West Side
@@ -39,7 +39,7 @@ NEUTRAL_COLORS = [
     "#000010",  # Darkest Neutral
     "#59585B",
     "#BBB9B9",
-    "#F2F2F2"   # Lightest Neutral
+    "#F6F6F6"   # Lightest Neutral
 ]
 
 # Distinct colors
@@ -62,7 +62,7 @@ COLOR_SCALE_RGB = {
     "Deep Red": (189, 0, 50),
     "Red": (247, 81, 75),
     "Light Red": (254, 179, 166),
-    "Neutral Middle": (242, 242, 242),
+    "Neutral Middle": (213, 213, 213),
     "Light Blue": (160, 203, 232),
     "Blue": (92, 141, 184),
     "Deep Blue": (28, 94, 169)
@@ -73,7 +73,7 @@ NEUTRAL_COLORS_RGB = {
     "Darkest Neutral": (0, 0, 16),
     "Neutral Dark": (89, 88, 91),
     "Neutral Light": (187, 185, 185),
-    "Lightest Neutral": (242, 242, 242)
+    "Lightest Neutral": (246, 246, 246)
 }
 
 # Distinct colors
