@@ -9,6 +9,31 @@ datamigos_template = {
         },
         "plot_bgcolor": "#F2F2F2",   # NEUTRAL-4 background color
         "colorway": DISTINCT_COLORS,
+        "xaxis": {
+            "title": {
+                "font": {
+                    "color": "#333333"
+                }
+            },
+            "tickfont": {
+                "color": "#333333"
+            }
+        },
+        "yaxis": {
+            "title": {
+                "font": {
+                    "color": "#333333"
+                }
+            },
+            "tickfont": {
+                "color": "#333333"
+            }
+        },
+        "title": {
+            "font": {
+                "color": "#333333"
+            }
+        }
     },
     "data": {
         "heatmap": [{
