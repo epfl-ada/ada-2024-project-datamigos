@@ -77,7 +77,7 @@ def plot_movies_distrib(df):
     fig.update_traces(domain=dict(x=[0.55, 1], y=[0, 0.95]), row=1, col=2)
 
     fig.update_layout(title_text="Movies Distribution based on Cold War Side", title_x=0.5, title_font_weight='bold', plot_bgcolor="#F2F2F2")
-    fig.write_html(WEB_EXPORT_FOLDER + "movies_distrib.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "movies_distrib.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 def plot_movies_distrib_by_year(df):
@@ -117,7 +117,7 @@ def plot_movies_distrib_by_year(df):
         textangle=-90 
     )
 
-    fig.write_html(WEB_EXPORT_FOLDER + "nb_movies_by_year.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "nb_movies_by_year.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 def plot_evol_nb_movies(df):
@@ -147,7 +147,7 @@ def plot_evol_nb_movies(df):
     fig.add_vline(x=1947, line_dash="dash", line_color="black", annotation_text="Start of Cold War")
     fig.add_vline(x=1991, line_dash="dash", line_color="black", annotation_text="End of Cold War")
 
-    fig.write_html(WEB_EXPORT_FOLDER + "evol_nb_movies.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "evol_nb_movies.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 # Function to get a origin point of country

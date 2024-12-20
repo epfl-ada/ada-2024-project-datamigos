@@ -33,7 +33,7 @@ def plot_top_languages(df, nb):
     fig.update_layout(title_text=f"Top {nb} Languages in Movies", title_x=0.5, title_font_weight='bold', plot_bgcolor="#F2F2F2")
     fig.update_traces(marker_color=NEUTRAL_COLORS[1])
 
-    fig.write_html(WEB_EXPORT_FOLDER + "top_languages.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "top_languages.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 def plot_top_lang_per_side(df, nb):
@@ -73,7 +73,7 @@ def plot_top_lang_per_side(df, nb):
         yaxis2=dict(title_text='Number of Movies')
     )
 
-    fig.write_html(WEB_EXPORT_FOLDER + "top_languages_per_side.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "top_languages_per_side.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 def plot_top_lang_side(df, nb, side):
@@ -89,7 +89,7 @@ def plot_top_lang_side(df, nb, side):
 
     fig.update_layout(title_text=f"Top {nb} Languages in {side} Bloc Movies", title_x=0.5, title_font_weight='bold', width=800, plot_bgcolor="#F2F2F2")
     fig.update_yaxes(type="log")
-    fig.write_html(WEB_EXPORT_FOLDER + f"top_{side}_languages.html")
+    fig.write_html(WEB_EXPORT_FOLDER + f"top_{side}_languages.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()
 
 def plot_top_lang_both_sides(df, nb):
@@ -120,5 +120,5 @@ def plot_top_lang_both_sides(df, nb):
 
     fig.update_xaxes(tickangle=45)
     fig.update_yaxes(type="log")
-    fig.write_html(WEB_EXPORT_FOLDER + "top_east_and_west_lang.html")
+    fig.write_html(WEB_EXPORT_FOLDER + "top_east_and_west_lang.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
     fig.show()

@@ -122,7 +122,7 @@ def plot_term_frequencies(etf_by_topic, otf_by_topic, colors, topic_dict):
             width=1000,  
             margin=dict(l=30, r=30, t=50, b=50) 
         )
-        fig.write_html(WEB_EXPORT_FOLDER + f"term_ferquencies_{topic_dict[topic_id].lower()}.html")
+        fig.write_html(WEB_EXPORT_FOLDER + f"term_ferquencies_{topic_dict[topic_id].lower()}.html", full_html=True, include_plotlyjs='cdn', config={'responsive': True})
         fig.show()
 
 def plot_empath_evolution(empath_df, topic_colors, title_end='Across Years'):
