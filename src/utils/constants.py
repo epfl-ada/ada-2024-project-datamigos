@@ -54,3 +54,37 @@ DISTINCT_COLORS = [
     "#FAC82B",
     "#F58634"
 ]
+
+# COLOR SETS in RGB
+# Scale West to East
+COLOR_SCALE_RGB = {
+    "Deep Red": (189, 0, 50),
+    "Red": (247, 81, 75),
+    "Light Red": (254, 179, 166),
+    "Neutral Middle": (242, 242, 242),
+    "Light Blue": (160, 203, 232),
+    "Blue": (92, 141, 184),
+    "Deep Blue": (28, 94, 169)
+}
+
+# Neutral colors
+NEUTRAL_COLORS_RGB = {
+    "Darkest Neutral": (0, 0, 16),
+    "Neutral Dark": (89, 88, 91),
+    "Neutral Light": (187, 185, 185),
+    "Lightest Neutral": (242, 242, 242)
+}
+
+# Distinct colors
+DISTINCT_COLORS_RGB = {
+    "Black": (0, 0, 0),
+    "Green": (6, 221, 149),
+    "Yellow Green": (152, 225, 68),
+    "Yellow": (255, 233, 137),
+    "Light Orange": (241, 171, 121),
+    "Teal": (75, 174, 154),
+    "Olive": (127, 177, 18),
+    "Lime": (240, 254, 65),
+    "Gold": (250, 200, 43),
+    "Orange": (245, 134, 52)
+}
