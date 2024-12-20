@@ -233,7 +233,7 @@ def create_preprocessed_movies():
         columns=["wikipedia_id", "freebase_id", "keywords", "runtime", "plot_summary"]
     )
 
-    movies["cold_war_side"] = movies["cold_war_side"].apply(lambda x: f'"{x}"')
+    movies["cold_war_side"] = movies["cold_war_side"].apply(lambda x: f'{x}')
 
     movies.to_csv(PREPROCESSED_MOVIES, index=False)
 

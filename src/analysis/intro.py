@@ -6,6 +6,8 @@ import plotly.graph_objects as go
 from src.analysis.intro import *
 from ipyleaflet import Map, TileLayer, GeoJSON, Popup, WidgetControl
 from ipywidgets import HTML
+import requests
+import json
 
 def compute_side_movie_count_per_country(df):
     # Initialize and assign counters
@@ -172,3 +174,99 @@ def create_popup_content(properties):
     <b>{properties['name']}</b><br>
     Number of Films: {properties['Total']}
     """
+
+def display_map_film_nb(df):
+    # Load GeoJSON data for countries
+    url = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
+    response = requests.get(url)
+    geo_json_data = response.json()
+
+    # Calculate the maximum number of films for normalization (we use 2000 as the threshold)
+    filtered_features = []
+    for feature in geo_json_data['features']:
+        country_name = feature['properties']['name']
+        
+        if country_name in df['Country'].values:
+            # Get the number of occurrences for the current country
+            counts = df[df['Country'] == country_name]
+            total_count = int(counts['Occurrences'].values[0])
+            
+            # Set color with scale
+            color = get_linear_greyscale_color(total_count)
+            
+            # Update feature properties
+            feature['properties']['Total'] = total_count
+            feature['properties']['color'] = color
+            filtered_features.append(feature)
+
+    # Update GeoJSON data
+    geo_json_data['features'] = filtered_features
+
+    # Create a map
+    center = (20, 0)
+    m_nb = Map(center=center, zoom=2)
+
+    # Add OpenStreetMap tiles
+    osm_layer = TileLayer(url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+    m_nb.add_layer(osm_layer)
+
+    # Add layer with click event
+    geo_json_layer = GeoJSON(
+        data=geo_json_data,
+        style_callback=lambda feature: {
+            'color': feature['properties']['color'],
+            'opacity': 1,
+            'weight': 1.5,
+            'fillOpacity': 0.7
+        },
+        hover_style={'fillOpacity': 0.3}
+    )
+
+    # Popup handling
+    def on_click(event, feature, map, **kwargs):
+        coordinates = get_point(feature['geometry'])
+        if coordinates:
+            popup_content = create_popup_content(feature['properties'])
+            popup = Popup(location=coordinates[::-1], child=HTML(value=popup_content), close_button=False)
+            m_nb.add_layer(popup)
+
+    geo_json_layer.on_click(on_click)
+    m_nb.add_layer(geo_json_layer)
+
+    # Legend of map
+    legend_html = """
+    <div style="background: white; padding: 5px; border: 1px solid black; border-radius: 3px; font-size: 10px; line-height: 1;">
+        <div style="font-weight: bold; text-align: center; margin-bottom: 3px;">Number of Films</div>
+    """
+
+    legend_colors = [
+        ('rgb(255,255,255)', '0'),
+        ('rgb(204,204,204)', ''),
+        ('rgb(153,153,153)', '1000'),
+        ('rgb(102,102,102)', ''),
+        ('rgb(51,51,51)', '2000'),
+        ('rgb(0,0,0)', '> 2000')
+    ]
+
+    for color, label in legend_colors:
+        legend_html += f"""
+        <div style="display: flex; align-items: center; margin-bottom: 2px;">
+            <div style="width: 12px; height: 12px; background: {color}; border: 1px solid black; margin-right: 2px;"></div>
+            <span style="margin: 0; padding: 0;">{label}</span>
+        </div>
+        """
+
+    legend_html += """
+    </div>
+    """
+
+    # Legend widget
+    legend_widget = HTML(value=legend_html)
+    legend_control = WidgetControl(widget=legend_widget, position='bottomright')
+    m_nb.add_control(legend_control)
+
+    display(m_nb)
+
+    # Save the GeoJSON data for the second map to a file
+    with open(WEB_EXPORT_FOLDER + "map_films_nb.json", "w") as f:
+        json.dump(geo_json_data, f)
