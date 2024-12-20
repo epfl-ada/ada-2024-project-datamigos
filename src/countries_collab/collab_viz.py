@@ -4,7 +4,6 @@ from dash import Dash, dcc, html, Input, Output
 import plotly.graph_objects as go
 import networkx as nx
 from src.utils.collab_viz_helpers import *
-from src.utils.helpers import assign_side
 from src.utils.constants import *
 
 
@@ -52,9 +51,9 @@ class StaticGraph:
                 elif side_0 == 'Eastern':
                     line_color = f'rgba({COLOR_SCALE_RGB["Deep Red"][0]}, {COLOR_SCALE_RGB["Deep Red"][1]}, {COLOR_SCALE_RGB["Deep Red"][2]}, {(weight / max_collaboration) * 5})'
                 else:
-                    line_color = f'rgba({DISTINCT_COLORS_RGB["Black"][0]}, {DISTINCT_COLORS_RGB["Black"][1]}, {DISTINCT_COLORS_RGB["Black"][2]}, 1)'
+                    line_color = f'rgba({NEUTRAL_COLORS_RGB["Neutral Light"][0]}, {NEUTRAL_COLORS_RGB["Neutral Light"][1]}, {NEUTRAL_COLORS_RGB["Neutral Light"][2]}, 1)'
             else:
-                line_color = f'rgba({DISTINCT_COLORS_RGB["Black"][0]}, {DISTINCT_COLORS_RGB["Black"][1]}, {DISTINCT_COLORS_RGB["Black"][2]}, 1)'
+                line_color = f'rgba({NEUTRAL_COLORS_RGB["Neutral Light"][0]}, {NEUTRAL_COLORS_RGB["Neutral Light"][1]}, {NEUTRAL_COLORS_RGB["Neutral Light"][2]}, 1)'
             
             edge_trace = go.Scatter(
                 x=[x0, x1, None],
