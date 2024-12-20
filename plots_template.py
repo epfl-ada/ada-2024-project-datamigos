@@ -1,5 +1,5 @@
 import plotly.io as pio
-from src.constants import *
+from utils.constants import *
 
 # Custom template
 datamigos_template = {

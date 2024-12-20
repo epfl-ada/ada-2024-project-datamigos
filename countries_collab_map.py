@@ -7,7 +7,7 @@ import numpy as np
 from collections import Counter
 from itertools import combinations
 from src.utils.helpers import convert_csv, assign_side
-from src.constants import DATA_FOLDER_PREPROCESSED
+from src.utils.constants import DATA_FOLDER_PREPROCESSED
 
 # Have been generated with GPT
 country_coords = {
