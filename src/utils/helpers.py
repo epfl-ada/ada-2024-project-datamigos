@@ -4,61 +4,6 @@ import re
 import pandas as pd
 import numpy as np
 
-def assign_side(movies_df, countries, relevance_nb=10, relevance_diff=10, threshold=19):
-    """
-    Assigns a Cold War side (Western, Eastern, or None) to each country based on the prevalence of films 
-    aligned with each side in a dataset.
-
-    Parameters:
-        movies_df: A dataframe containing movie data. Must include the following columns:
-            - `countries`: A list of strings representing the countries producing each film.
-            - `cold_war_side`: A string representing the Cold War alignment of the film ('Western', 'Eastern', or 'None').
-        relevance_nb: The minimum number of films required for a country to be assigned either 'Western', 'Eastern' or 'None'.
-                      If a country's total count of films is less than this value, it is assigned 'Lack of data'.
-                      Defaults to 10.
-        relevance_diff: The minimum number of films required for a country to be assigned either 'Western' or 'Eastern'.
-                      If a country's total count of 'Western' or 'Eastern' films is less than this value, it is assigned 'None'.
-                      Defaults to 10.
-        countries: A list of country names for which the Cold War side alignment needs to be determined.
-        threshold: The minimum percentage difference between the number of Western and Eastern aligned films 
-                   required to classify a country as either 'Western' or 'Eastern'. Defaults to 19%.
-
-    Returns:
-        A dictionary where the keys are country names and the values are their assigned Cold War side.
-
-    Notes:
-        - If a country has no films associated with a Cold War side, it is assigned to 'None'.
-        - The function calculates the percentage difference between the number of Western and Eastern aligned films 
-          for each country and compares it to the threshold to determine the alignment.
-        """
-    country_cold_war_side = {}
-
-    for country in countries:
-        # Get the 'cold_war_side' counts for the country in `movies`
-        sides = movies_df.loc[movies_df['countries'].apply(lambda x: country in x), 'cold_war_side'].values
-        west_count = (sides == 'Western').sum()
-        east_count = (sides == 'Eastern').sum()
-        total_count = len(sides)
-
-        total_count_without_none = west_count + east_count
-        if total_count < relevance_nb:
-            country_cold_war_side[country] = 'Lack of data'
-        elif total_count_without_none < relevance_diff and total_count >= relevance_nb:
-            country_cold_war_side[country] = 'None'
-        else:
-            # Calculate the percentage difference
-            percentage_difference = abs(west_count - east_count) / total_count_without_none * 100
-            
-            # Assign the corresponding side to the country
-            if percentage_difference < threshold or west_count == east_count:
-                country_cold_war_side[country] = 'None'
-            elif west_count > east_count:
-                country_cold_war_side[country] = 'Western'
-            elif west_count < east_count:
-                country_cold_war_side[country] = 'Eastern'
-    
-    return country_cold_war_side
-
 def convert_csv(df):
     for col in df.columns:
         try:

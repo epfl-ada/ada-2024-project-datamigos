@@ -1,8 +1,8 @@
 import dash
+import copy
 from dash import Dash, dcc, html, Input, Output
 import plotly.graph_objects as go
 import networkx as nx
-import pandas as pd
 from src.utils.collab_viz_helpers import *
 from src.utils.helpers import assign_side
 from src.utils.constants import *
@@ -105,8 +105,7 @@ class StaticGraph:
 
         # Set the layout
         self.fig.update_layout(layout)
-
-        return self.fig
+        return copy.deepcopy(self.fig)
     
     def plot(self):
         if hasattr(self, 'fig'):
@@ -114,32 +113,29 @@ class StaticGraph:
         else:
             raise("Error: The Figure have not been created yet.")
         
-    def make_html(self):
-        return self.fig.write_html(WEB_EXPORT_FOLDER + "static_graph.html")
-        
     def get_figure(self):
         if hasattr(self, 'fig'):
-            return self.fig
+            return copy.deepcopy(self.fig)
         else:
             raise("Error: The Figure have not been created yet.")
 
     def get_countries(self):
-        return self.countries
+        return copy.deepcopy(self.countries)
     
     def get_root_film_count(self):
-        return self.root_film_count
+        return copy.deepcopy(self.root_film_count)
     
     def get_collaboration_count(self):
-        return self.collaboration_count
+        return copy.deepcopy(self.collaboration_count)
     
     def get_country_cold_war_side(self):
-        return self.country_cold_war_side
+        return copy.deepcopy(self.country_cold_war_side)
     
     def get_nodes(self):
-        return self.graph.nodes
+        return copy.deepcopy(self.graph.nodes)
     
     def get_edges(self):
-        return self.graph.edges
+        return copy.deepcopy(self.graph.edges)
 
 
 class DynamicGraph:
@@ -183,7 +179,7 @@ class DynamicGraph:
             return graph.create_figure()
         
     def get_app(self):
-        return self.app
+        return copy.deepcopy(self.app)
     
     def plot(self):
         return self.app.run(debug=True)
@@ -298,7 +294,7 @@ class StaticMap:
             )
         )
 
-        return self.fig
+        return copy.deepcopy(self.fig)
 
     def plot(self):
         if hasattr(self, 'fig'):
@@ -306,32 +302,29 @@ class StaticMap:
         else:
             raise("Error: The Figure have not been created yet.")
         
-    def make_html(self):
-        return self.fig.write_html(WEB_EXPORT_FOLDER + "static_map.html")
-        
     def get_figure(self):
         if hasattr(self, 'fig'):
-            return self.fig
+            return copy.deepcopy(self.fig)
         else:
             raise("Error: The Figure have not been created yet.")
 
     def get_countries(self):
-        return self.countries
+        return copy.deepcopy(self.countries)
     
     def get_root_film_count(self):
-        return self.root_film_count
+        return copy.deepcopy(self.root_film_count)
     
     def get_collaboration_count(self):
-        return self.collaboration_count
+        return copy.deepcopy(self.collaboration_count)
     
     def get_country_cold_war_side(self):
-        return self.country_cold_war_side
+        return copy.deepcopy(self.country_cold_war_side)
     
     def get_nodes(self):
-        return self.graph.nodes
+        return copy.deepcopy(self.graph.nodes)
     
     def get_edges(self):
-        return self.graph.edges
+        return copy.deepcopy(self.graph.edges)
     
 
 class DynamicMap:
@@ -381,7 +374,7 @@ class DynamicMap:
             return map.create_figure()
     
     def get_app(self):
-        return self.app
+        return copy.deepcopy(self.app)
     
     def plot(self):
         return self.app.run(debug=True)
