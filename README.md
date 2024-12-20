@@ -54,23 +54,28 @@ Find our data story with the final analysis and visualizations on the  website [
 - Utilize a tool like [Leaflet.js](https://leafletjs.com) to create interactive maps that visualize our data analysis, allowing users to explore geographical trends in film distribution.
 - Create a network graph to visualize the connections between countries based on the number of collaborations in film production.
 - Map language distribution to highlight dominant languages across regions, potentially revealing patterns of cultural or political influence.
-- Study the differences in genre popularity between the Eastern and Western blocs by plotting the number of movies released per genre across both blocs and how they evolved over time.
+
+**4. Themes and genres analysis:**
+
+- Study the differences in genre popularity between the Eastern and Western blocs by plotting the number of movies released per genre across both blocs and how they evolved over time. 
 - Study themes present specifically in War Movies to find the differences in the portrayal of war between the two blocs.
+- Relative difference was used to point out genres and themes that appear much more frequently in one side over the other.
+- Theme topic detection: Use Latent Dirichelet Allocation to identify recurring themes in movies from each bloc. Identifying the influence of political events as well as cultural differences between the two blocs.
 
-**4. Clustering for Influence Zones:**-
+**5. Characters analysis:**
 
-- Theme topic detection: Use topic modeling to identify recurring themes in movies from each bloc. Identifying the influence of political events as well as cultural differences between the two blocs.
-- Character archetype detection: Use clustering to identify recurring character archetypes in movies from each bloc, potentially revealing differences in how friendly and antagonistic characters were portrayal between the Eastern and Western blocs.
+- Character archetype detection: Use Latent Dirichelet Allocation to identify recurring character archetypes in movies from each bloc, potentially revealing differences in how friendly and antagonistic characters were portrayal between the Eastern and Western blocs.
+- Sementical analysis to study th evolution of the themes embodied by the characters accross the Cold War.
 
 
 ## Team organization
 
 |Member | Contribution |
 |--------|--------------|
-|Mehdi | <ol><li>Data Integration & Cleaning</li><li>Prompt Engineering</li><li>Clustering for Influence Zones</li></ol>|
+|Mehdi | <ol><li>Data Integration & Cleaning</li><li>Visualization</li><li>Clustering for Influence Zones</li></ol>|
 |Mattéo | <ol><li>Data Integration & Cleaning</li><li>Prompt Engineering</li><li>Theme Topic Detection</li></ol>|
-|Fanny     | <ol><li>Data Integration & Cleaning</li><li>Character Archetype Detection</li><li>Story Narrative</li><ol>|
-|Karim     |<ol><li>Data Integration & Cleaning</li><li>Genre Analysis and Visualization</li><li>Theme Analysis and Visualization</li><ol>|
+|Fanny     | <ol><li>Data Integration & Cleaning</li><li>Visualization</li><li>Characters Analysis</li><li>Data Story</li><ol>|
+|Karim     |<ol><li>Data Integration & Cleaning</li><li>Themes and genre Analysis</li><ol>|
 |Martin | <ol><li>Data Integration & Cleaning</li><li>Visualizations</li><li>Website</li></ol>|
 
 ## Project Structure
@@ -91,6 +96,8 @@ Find our data story with the final analysis and visualizations on the  website [
           - 📂 `IMDb`: File Sizes too Large, manually install from https://datasets.imdbws.com/
             - `title.akas.tsv`
             - `basics.akas.tsv`
+    - 📂`PNGs`
+    - 📂`web_export`: the HTML files used to make the website
 - 📂`src`:
     - 📂`analysis`: All scripts for the whole data analysis called in the main notebook
     - 📂`dataset_creation`: All scripts to merge, clean and augment the data to create the final dataset `preprocessed_movies.csv`
