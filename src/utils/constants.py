@@ -44,7 +44,7 @@ NEUTRAL_COLORS = [
 
 # Distinct colors
 DISTINCT_COLORS = [
-    "#000000",
+    "#1F6B5D",
     "#06DD95",
     "#98E144",
     "#FFE989",
@@ -78,7 +78,7 @@ NEUTRAL_COLORS_RGB = {
 
 # Distinct colors
 DISTINCT_COLORS_RGB = {
-    "Black": (0, 0, 0),
+    "Black": (31, 107, 93),
     "Green": (6, 221, 149),
     "Yellow Green": (152, 225, 68),
     "Yellow": (255, 233, 137),
