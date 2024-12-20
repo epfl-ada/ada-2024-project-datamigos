@@ -114,6 +114,9 @@ class StaticGraph:
         else:
             raise("Error: The Figure have not been created yet.")
         
+    def make_html(self):
+        return self.fig.write_html(WEB_EXPORT_FOLDER + "static_graph.html")
+        
     def get_figure(self):
         if hasattr(self, 'fig'):
             return self.fig
@@ -302,6 +305,9 @@ class StaticMap:
             return self.fig.show()
         else:
             raise("Error: The Figure have not been created yet.")
+        
+    def make_html(self):
+        return self.fig.write_html(WEB_EXPORT_FOLDER + "static_map.html")
         
     def get_figure(self):
         if hasattr(self, 'fig'):
